@@ -1,6 +1,7 @@
 /**
  * @author dmarcos / https://github.com/dmarcos
  * @author mrdoob / http://mrdoob.com
+ * 
  */
 
 THREE.VRControls = function ( object, onError ) {
