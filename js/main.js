@@ -45,7 +45,6 @@ var clock = new THREE.Clock();
 var vrControls;
 var idxPanos = 0; // Index of ODI in the panos.json file
 var effect;
-//var manager;
 var overlay;
 var overlay_text;
 var pano;
@@ -54,19 +53,15 @@ var renderer;
 var scene;
 var scene2;
 var vrMode = false;
-
-//var keyboard = false;
-
 var creatingFile = 0;
 var currentIndex = 0;
 var currentResults = "";
 var panoCurrentName = "";
-
 var raycaster;
 var vector;
 var helper;
 var loadedOverlay_text=0;
-var clock = new THREE.Clock(); // check how to implement it
+
 
 var group = new THREE.Group();
 var trainingDone = 0;
