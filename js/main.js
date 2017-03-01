@@ -179,6 +179,7 @@ function loadPano() { panosList.then(function(panos) {
 // initialize scene
 function init() {
   renderer = new THREE.WebGLRenderer({ antialias: true });
+  var element = renderer.domElement;
   renderer.autoClear = false;
 
   // Creates a renderer with black background
@@ -197,6 +198,20 @@ function init() {
 
   scene.add(camera);
   scene2.add(camera2);
+
+  //Add Controls for mouse
+  controls = new THREE.OrbitControls(camera, element);
+  controls.rotateUp(Math.PI / 4);
+  controls.target.set(
+  camera.position.x + 0.1,
+  camera.position.y,
+  camera.position.z
+  );
+  controls.noZoom = true;
+  controls.noPan = true;
+
+  //  Device orientation event 
+  window.addEventListener('deviceorientation', setOrientationControls, true);
 
   // effect and controls for VR - These are not in original THREE lib
   effect = new THREE.VREffect(renderer);
@@ -557,6 +572,20 @@ function saveTextAsFile(textToSave, fileNameToSaveAs) {
   window.URL.revokeObjectURL(textToSaveAsURL);
 }
 
+// Controls for the mouse
+function setOrientationControls(e) {
+  if (!e.alpha) {
+  return;
+}
+controls = new THREE.DeviceOrientationControls(camera, true);
+controls.connect();
+controls.update();
+window.removeEventListener('deviceorientation', setOrientationControls, true);
+}
+
+
+// listeners
+
 document.querySelector('#enterVr').addEventListener('click', function() {
   vrMode = vrMode ? false : true;
   requestFullscreen();
@@ -568,6 +597,7 @@ document.addEventListener('mozfullscreenchange', onFullscreenChange);
 
 window.addEventListener('keydown', trainingSlideShow, true);
 window.addEventListener('resize', onWindowResize, false );
+
 
 init();
 
